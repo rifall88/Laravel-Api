@@ -8,6 +8,7 @@ use App\Http\Requests\registerRequest;
 use App\Http\Requests\loginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\userResource;
 
 class UserController extends Controller
 {
@@ -60,5 +61,14 @@ class UserController extends Controller
             ]
         ]);
 
+    }
+
+    public function getUserAll()
+    {
+        $users = User::all();
+         return response()->json([
+            'status'  => 'success',
+            'data'    => userResource::collection($users)
+        ]);
     }
 }
